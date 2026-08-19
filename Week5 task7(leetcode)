@@ -1,0 +1,25 @@
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int[] lastSeen = new int[128];
+        int left = 0;
+        int maxLength = 0;
+
+        // -1 means the character has not been seen
+        java.util.Arrays.fill(lastSeen, -1);
+
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+
+            // Move left past the previous occurrence
+            if (lastSeen[c] >= left) {
+                left = lastSeen[c] + 1;
+            }
+
+            lastSeen[c] = right;
+
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        return maxLength;
+    }
+}
